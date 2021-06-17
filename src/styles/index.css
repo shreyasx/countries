@@ -7,3 +7,15 @@
 	font-family: "Nunito Sans", sans-serif;
 	background-color: hsl(0, 0%, 98%);
 }
+
+@media only screen and (max-width: 450px) {
+	#header h3 {
+		margin-left: 20px;
+		margin-right: 10px;
+	}
+
+	#header div {
+		margin-left: 10px;
+		margin-right: 20px;
+	}
+}

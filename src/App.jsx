@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import Header from "./components/header";
 import Card from "./components/card";
 import "./styles/app.css";
+import Filters from "./components/filters";
+import ReactLoading from "react-loading";
+
 const API =
 	"https://restcountries.eu/rest/v2/all?fields=name;region;capital;population;flag";
 const shuffleArray = array => {
@@ -20,21 +23,60 @@ const shuffleArray = array => {
 
 const App = () => {
 	const [countries, setCountries] = useState([]);
+	const [searchText, setSearchText] = useState("");
+	const [regions, setRegions] = useState([]);
+	const [region, setRegion] = useState("All");
+	const [loading, setLoading] = useState(true);
 
 	const getCountries = async () => {
 		const response = await fetch(API);
-		const countries = await response.json();
-		setCountries(shuffleArray(countries));
+		const data = await response.json();
+		setCountries(shuffleArray(data));
 	};
 
+	const onRegionChange = text => setRegion(text);
+	const onSearchChange = text => setSearchText(text);
+
+	// eslint-disable-next-line
 	useEffect(() => getCountries(), []);
+
+	useEffect(() => {
+		setRegions(
+			countries
+				.map(country => country.region)
+				.filter((value, index, self) => self.indexOf(value) === index)
+		);
+		setLoading(false);
+	}, [countries]);
+
 	return (
 		<>
 			<Header />
+			<Filters
+				onSearchChange={onSearchChange}
+				regions={regions}
+				onRegionChange={onRegionChange}
+			/>
 			<div className="countries-container">
-				{countries.map((country, index) => (
-					<Card key={index} country={country} />
-				))}
+				{loading ? (
+					<div style={{ padding: "50px" }}>
+						<ReactLoading
+							type={"spinningBubbles"}
+							color={"#000000"}
+							height={150}
+							width={150}
+						/>
+					</div>
+				) : (
+					countries
+						.filter(country =>
+							country.name.toLowerCase().includes(searchText.toLowerCase())
+						)
+						.filter(country =>
+							region === "All" ? true : country.region === region
+						)
+						.map((country, index) => <Card key={index} country={country} />)
+				)}
 			</div>
 		</>
 	);

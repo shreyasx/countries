@@ -1,13 +1,25 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+import ReactLoading from "react-loading";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import "./styles/index.css";
+const App = lazy(() => import("./App"));
 
 ReactDOM.render(
-	<React.StrictMode>
+	<Suspense
+		fallback={
+			<div style={{ padding: "50px" }}>
+				<ReactLoading
+					type={"spinningBubbles"}
+					color={"#000000"}
+					height={150}
+					width={150}
+				/>
+			</div>
+		}
+	>
 		<App />
-	</React.StrictMode>,
+	</Suspense>,
 	document.getElementById("root")
 );
 

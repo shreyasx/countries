@@ -7,7 +7,7 @@ const Header = () => {
 			<div id="header">
 				<h3>Where in the world?</h3>
 				<div>
-					<img src="/images/moon.png" alt="moon" />
+					<img src="/images/moon.svg" alt="moon" id="theme-switcher" />
 					&nbsp;&nbsp;Dark Mode
 				</div>
 			</div>
