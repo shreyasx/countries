@@ -3,20 +3,35 @@ import ReactLoading from "react-loading";
 import { Link } from "react-router-dom";
 import "../styles/country.css";
 
-const Country = ({ match }) => {
+const API = "https://restcountries.eu/rest/v2/alpha/";
+
+const Country = ({ match, history }) => {
 	const [country, setCountry] = useState({});
 	const [loading, setLoading] = useState(true);
+	const [borders, setBorders] = useState([]);
 
 	useEffect(() => {
 		(async () => {
-			const response = await fetch(
-				"https://restcountries.eu/rest/v2/alpha/" + match.params.code
-			);
+			const response = await fetch(API + match.params.code);
 			const data = await response.json();
 			setCountry(data);
-			setLoading(false);
 		})();
 	}, [match.params.code]);
+
+	useEffect(() => {
+		(async () => {
+			if (!("borders" in country)) return;
+			var borders = [];
+			for (var i = 0; i < country.borders.length; i++) {
+				const response = await fetch(API + country.borders[i]);
+				const data = await response.json();
+				const { name, alpha3Code } = data;
+				borders.push({ name, alpha3Code });
+			}
+			setBorders(borders);
+			setLoading(false);
+		})();
+	}, [country]);
 
 	const getList = array => {
 		var line = "";
@@ -53,11 +68,17 @@ const Country = ({ match }) => {
 				</div>
 			) : (
 				<>
-					<Link className="link-to-home" to="/">
-						<button id="back">
+					<div id="btns">
+						<button onClick={history.goBack} className="back">
 							<i className="arrow left"></i>&nbsp;&nbsp;&nbsp;Back
 						</button>
-					</Link>
+						<button className="back" style={{ cursor: "pointer" }}>
+							<Link to="/">
+								<img src="/images/home.svg" alt="Home icon" srcset="" />
+								&nbsp;&nbsp;&nbsp;Home
+							</Link>
+						</button>
+					</div>
 					<div className="w3-container w3-half flag-container">
 						<img id={"flag"} src={flag} alt={`${name}'s flag`} />
 					</div>
@@ -95,6 +116,20 @@ const Country = ({ match }) => {
 									{getList(languages.map(language => language.name))}
 								</li>
 							</ul>
+						</div>
+						<div className="neighbours">
+							<span className="bold-span">Border Countries:</span>
+							<br />
+							{borders.map((country, index) => (
+								<Link
+									className="neighbour-link"
+									key={index}
+									to={`/country/${country.alpha3Code}`}
+									onClick={() => setLoading(true)}
+								>
+									<button className="neighbour">{country.name}</button>
+								</Link>
+							))}
 						</div>
 					</div>
 				</>

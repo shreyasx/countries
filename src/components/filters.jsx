@@ -9,7 +9,7 @@ const Filters = ({ onSearchChange, regions, onRegionChange }) => {
 		onRegionChange(region === "No region" ? "" : region);
 		const text = document.getElementById("textt");
 		region === "All"
-			? (text.innerHTML = `Filter by region`)
+			? (text.innerHTML = `Filter by Region`)
 			: (text.innerHTML = `Region: ${region}`);
 	};
 
@@ -27,7 +27,7 @@ const Filters = ({ onSearchChange, regions, onRegionChange }) => {
 				<img src="/images/search.svg" alt="moon" id="searchIcon" />
 				<input
 					type="text"
-					placeholder="Search for a country.."
+					placeholder="Search for a country"
 					id="searchBox"
 					onChange={event => onSearchChange(event.target.value)}
 				/>
