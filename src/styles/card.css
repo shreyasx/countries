@@ -22,3 +22,8 @@
 .details {
 	padding: 15px 0;
 }
+
+.info a {
+	color: black;
+	text-decoration: none;
+}

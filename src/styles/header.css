@@ -4,6 +4,7 @@
 	justify-content: space-between;
 	height: 70px;
 	box-shadow: 0 8px 7px -7px rgba(0, 0, 0, 0.4);
+	margin-bottom: 5px;
 }
 
 #header h3 {

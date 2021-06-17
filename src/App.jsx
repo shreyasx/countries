@@ -1,85 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import Country from "./components/country";
+import Home from "./components/home";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/header";
-import Card from "./components/card";
-import "./styles/app.css";
-import Filters from "./components/filters";
-import ReactLoading from "react-loading";
 
-const API =
-	"https://restcountries.eu/rest/v2/all?fields=name;region;capital;population;flag";
-const shuffleArray = array => {
-	var currentIndex = array.length,
-		randomIndex;
-	while (0 !== currentIndex) {
-		randomIndex = Math.floor(Math.random() * currentIndex);
-		currentIndex--;
-		[array[currentIndex], array[randomIndex]] = [
-			array[randomIndex],
-			array[currentIndex],
-		];
-	}
-	return array;
-};
-
-const App = () => {
-	const [countries, setCountries] = useState([]);
-	const [searchText, setSearchText] = useState("");
-	const [regions, setRegions] = useState([]);
-	const [region, setRegion] = useState("All");
-	const [loading, setLoading] = useState(true);
-
-	const getCountries = async () => {
-		const response = await fetch(API);
-		const data = await response.json();
-		setCountries(shuffleArray(data));
-	};
-
-	const onRegionChange = text => setRegion(text);
-	const onSearchChange = text => setSearchText(text);
-
-	// eslint-disable-next-line
-	useEffect(() => getCountries(), []);
-
-	useEffect(() => {
-		setRegions(
-			countries
-				.map(country => country.region)
-				.filter((value, index, self) => self.indexOf(value) === index)
-		);
-		setLoading(false);
-	}, [countries]);
-
-	return (
-		<>
-			<Header />
-			<Filters
-				onSearchChange={onSearchChange}
-				regions={regions}
-				onRegionChange={onRegionChange}
-			/>
-			<div className="countries-container">
-				{loading ? (
-					<div style={{ padding: "50px" }}>
-						<ReactLoading
-							type={"spinningBubbles"}
-							color={"#000000"}
-							height={150}
-							width={150}
-						/>
-					</div>
-				) : (
-					countries
-						.filter(country =>
-							country.name.toLowerCase().includes(searchText.toLowerCase())
-						)
-						.filter(country =>
-							region === "All" ? true : country.region === region
-						)
-						.map((country, index) => <Card key={index} country={country} />)
-				)}
-			</div>
-		</>
-	);
-};
-
+const App = () => (
+	<Router>
+		<Header />
+		<Switch>
+			<Route path="/" exact component={Home} />
+			<Route path="/country/:code" exact component={Country} />
+		</Switch>
+	</Router>
+);
 export default App;

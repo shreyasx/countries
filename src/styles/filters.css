@@ -9,6 +9,11 @@
 	transform: rotate(45deg);
 }
 
+.left {
+	transform: rotate(135deg);
+	-webkit-transform: rotate(135deg);
+}
+
 #filters {
 	display: flex;
 	justify-content: space-evenly;
@@ -45,6 +50,8 @@
 }
 
 .dropdown {
+	border: 1px solid black;
+	border-radius: 5px;
 	cursor: pointer;
 	position: relative;
 	background-color: #fff;
