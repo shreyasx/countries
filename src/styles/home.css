@@ -5,3 +5,7 @@
 	margin: 0 20px;
 	margin-bottom: 30px;
 }
+
+#home {
+	min-height: calc(100vh - 75px);
+}

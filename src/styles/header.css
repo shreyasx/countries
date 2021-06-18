@@ -21,3 +21,7 @@
 #theme-switcher {
 	width: 16px;
 }
+
+.theme-switch {
+	cursor: pointer;
+}

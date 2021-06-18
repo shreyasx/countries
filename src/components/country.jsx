@@ -5,7 +5,7 @@ import "../styles/country.css";
 
 const API = "https://restcountries.eu/rest/v2/alpha/";
 
-const Country = ({ match, history }) => {
+const Country = ({ match, history, isDarkModeActive }) => {
 	const [country, setCountry] = useState({});
 	const [loading, setLoading] = useState(true);
 	const [borders, setBorders] = useState([]);
@@ -56,12 +56,12 @@ const Country = ({ match, history }) => {
 	} = country;
 
 	return (
-		<div className="country">
+		<div className={isDarkModeActive ? "dark country" : "light country"}>
 			{loading ? (
 				<div style={{ padding: "50px" }}>
 					<ReactLoading
 						type={"spinningBubbles"}
-						color={"#000000"}
+						color={isDarkModeActive ? "#fff" : "#000"}
 						height={150}
 						width={150}
 					/>
@@ -69,20 +69,66 @@ const Country = ({ match, history }) => {
 			) : (
 				<>
 					<div id="btns">
-						<button onClick={history.goBack} className="back">
-							<i className="arrow left"></i>&nbsp;&nbsp;&nbsp;Back
+						<button
+							style={{
+								color: isDarkModeActive
+									? "hsl(0, 0%, 100%)"
+									: "hsl(200, 15%, 8%)",
+								backgroundColor: isDarkModeActive
+									? "hsl(209, 23%, 22%)"
+									: "hsl(0, 0%, 100%)",
+							}}
+							onClick={history.goBack}
+							className="back"
+						>
+							<i
+								style={{
+									borderColor: isDarkModeActive
+										? "hsl(0, 0%, 100%)"
+										: "hsl(200, 15%, 8%)",
+								}}
+								className="arrow left"
+							></i>
+							&nbsp;&nbsp;&nbsp;Back
 						</button>
-						<button className="back" style={{ cursor: "pointer" }}>
-							<Link to="/">
+						<button
+							className="back"
+							style={{
+								cursor: "pointer",
+								backgroundColor: isDarkModeActive
+									? "hsl(209, 23%, 22%)"
+									: "hsl(0, 0%, 100%)",
+							}}
+						>
+							<Link
+								style={{
+									color: isDarkModeActive
+										? "hsl(0, 0%, 100%)"
+										: "hsl(200, 15%, 8%)",
+								}}
+								to="/"
+							>
 								<img src="/images/home.svg" alt="Home icon" srcset="" />
 								&nbsp;&nbsp;&nbsp;Home
 							</Link>
 						</button>
 					</div>
-					<div className="w3-container w3-half flag-container">
+					<div
+						className={
+							isDarkModeActive
+								? "w3-container w3-half flag-container"
+								: "w3-container w3-half flag-container"
+						}
+					>
 						<img id={"flag"} src={flag} alt={`${name}'s flag`} />
 					</div>
-					<div className="w3-container w3-half info-container">
+					<div
+						className={
+							isDarkModeActive
+								? "w3-container w3-half info-container"
+								: "w3-container w3-half info-container"
+						}
+					>
 						<h2 style={{ margin: "10px 40px" }}>{country.name}</h2>
 						<div className="list">
 							<ul>
@@ -127,7 +173,19 @@ const Country = ({ match, history }) => {
 									to={`/country/${country.alpha3Code}`}
 									onClick={() => setLoading(true)}
 								>
-									<button className="neighbour">{country.name}</button>
+									<button
+										style={{
+											backgroundColor: isDarkModeActive
+												? "hsl(209, 23%, 22%)"
+												: "hsl(0, 0%, 100%)",
+											color: isDarkModeActive
+												? "hsl(0, 0%, 100%)"
+												: "hsl(200, 15%, 8%)",
+										}}
+										className="neighbour"
+									>
+										{country.name}
+									</button>
 								</Link>
 							))}
 						</div>

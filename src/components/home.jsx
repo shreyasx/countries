@@ -20,7 +20,7 @@ const shuffleArray = array => {
 	return array;
 };
 
-const Home = () => {
+const Home = ({ isDarkModeActive }) => {
 	const [countries, setCountries] = useState([]);
 	const [searchText, setSearchText] = useState("");
 	const [regions, setRegions] = useState([]);
@@ -49,8 +49,9 @@ const Home = () => {
 	}, [countries]);
 
 	return (
-		<>
+		<div id="home">
 			<Filters
+				isDarkModeActive={isDarkModeActive}
 				onSearchChange={onSearchChange}
 				regions={regions}
 				onRegionChange={onRegionChange}
@@ -76,7 +77,7 @@ const Home = () => {
 						.map((country, index) => <Card key={index} country={country} />)
 				)}
 			</div>
-		</>
+		</div>
 	);
 };
 

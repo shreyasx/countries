@@ -1,12 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;800&display=swap");
 
 * {
+	transition: background 0.5s;
+	color: background 0.5s;
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: "Nunito Sans", sans-serif;
+	font-family: "Nunito Sans", sans-serif !important;
 	font-size: 14px;
+}
+
+.light {
+	color: hsl(200, 15%, 8%);
 	background-color: hsl(0, 0%, 98%);
+}
+
+.dark {
+	color: hsl(0, 0%, 100%);
+	background-color: hsl(207, 26%, 17%);
 }
 
 @media only screen and (max-width: 450px) {
