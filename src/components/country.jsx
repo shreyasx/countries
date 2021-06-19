@@ -56,7 +56,10 @@ const Country = ({ match, history, isDarkModeActive }) => {
 	} = country;
 
 	return (
-		<div className={isDarkModeActive ? "dark country" : "light country"}>
+		<div
+			className={isDarkModeActive ? "dark country" : "light country"}
+			style={{ minHeight: "calc(100vh - 75px)" }}
+		>
 			{loading ? (
 				<div style={{ padding: "50px" }}>
 					<ReactLoading
@@ -116,8 +119,8 @@ const Country = ({ match, history, isDarkModeActive }) => {
 					<div
 						className={
 							isDarkModeActive
-								? "w3-container w3-half flag-container"
-								: "w3-container w3-half flag-container"
+								? "w3-container w3-half dark flag-container"
+								: "w3-container w3-half light flag-container"
 						}
 					>
 						<img id={"flag"} src={flag} alt={`${name}'s flag`} />
@@ -125,8 +128,8 @@ const Country = ({ match, history, isDarkModeActive }) => {
 					<div
 						className={
 							isDarkModeActive
-								? "w3-container w3-half info-container"
-								: "w3-container w3-half info-container"
+								? "w3-container w3-half dark info-container"
+								: "w3-container w3-half light info-container"
 						}
 					>
 						<h2 style={{ margin: "10px 40px" }}>{country.name}</h2>
