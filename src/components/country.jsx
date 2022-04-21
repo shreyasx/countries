@@ -17,7 +17,6 @@ const Country = ({ match, history, isDarkModeActive }) => {
 				);
 				const data = await response.json();
 				setCountry(data[0]);
-				console.log(data[0]);
 				setLoading(false);
 			} catch (e) {
 				history.goBack();
@@ -38,7 +37,6 @@ const Country = ({ match, history, isDarkModeActive }) => {
 						`https://restcountries.com/v3.1/alpha/${country.borders[i]}?fields=name,cca2`
 					);
 					const data = await response.json();
-					console.log(data);
 					const { name, cca2 } = data;
 					borders.push({ name: name.common, cca2 });
 				}
@@ -113,7 +111,7 @@ const Country = ({ match, history, isDarkModeActive }) => {
 									}}
 									to="/"
 								>
-									<img src="/images/home.svg" alt="Home icon" srcset="" />
+									<img src="/images/home.svg" alt="Home icon" srcSet="" />
 									&nbsp;&nbsp;&nbsp;Home
 								</Link>
 							</button>
