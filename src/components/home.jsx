@@ -5,7 +5,8 @@ import Card from "./card";
 import "../styles/home.css";
 
 const API =
-	"https://restcountries.eu/rest/v2/all?fields=name;region;capital;population;flag;alpha3Code;";
+	"https://restcountries.com/v3.1/all?fields=name,region,capital,population,flags,cca2";
+
 const shuffleArray = array => {
 	var currentIndex = array.length,
 		randomIndex;
@@ -31,6 +32,7 @@ const Home = ({ isDarkModeActive }) => {
 		const response = await fetch(API);
 		const data = await response.json();
 		setCountries(shuffleArray(data));
+		setLoading(false);
 	};
 
 	const onRegionChange = text => setRegion(text);
@@ -45,7 +47,6 @@ const Home = ({ isDarkModeActive }) => {
 				.map(country => country.region)
 				.filter((value, index, self) => self.indexOf(value) === index)
 		);
-		setLoading(false);
 	}, [countries]);
 
 	return (
@@ -69,7 +70,9 @@ const Home = ({ isDarkModeActive }) => {
 				) : (
 					countries
 						.filter(country =>
-							country.name.toLowerCase().includes(searchText.toLowerCase())
+							country.name.official
+								.toLowerCase()
+								.includes(searchText.toLowerCase())
 						)
 						.filter(country =>
 							region === "All" ? true : country.region === region
