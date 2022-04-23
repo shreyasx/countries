@@ -3,23 +3,10 @@ import Filters from "./filters";
 import ReactLoading from "react-loading";
 import Card from "./card";
 import "../styles/home.css";
+import { shuffleArray } from "../utils";
 
 const API =
 	"https://restcountries.com/v3.1/all?fields=name,region,capital,population,flags,cca2";
-
-const shuffleArray = array => {
-	var currentIndex = array.length,
-		randomIndex;
-	while (0 !== currentIndex) {
-		randomIndex = Math.floor(Math.random() * currentIndex);
-		currentIndex--;
-		[array[currentIndex], array[randomIndex]] = [
-			array[randomIndex],
-			array[currentIndex],
-		];
-	}
-	return array;
-};
 
 const Home = ({ isDarkModeActive }) => {
 	const [countries, setCountries] = useState([]);

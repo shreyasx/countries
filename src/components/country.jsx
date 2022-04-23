@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
 import { Link } from "react-router-dom";
 import "../styles/country.css";
+import { getList } from "../utils";
 
 const Country = ({ match, history, isDarkModeActive }) => {
 	const [country, setCountry] = useState(null);
@@ -44,15 +45,6 @@ const Country = ({ match, history, isDarkModeActive }) => {
 			}
 		})();
 	}, [country]);
-
-	const getList = array => {
-		var line = "";
-		for (var i = 0; i < array.length; i++) {
-			line += array[i];
-			if (i !== array.length - 1) line += ", ";
-		}
-		return line;
-	};
 
 	return (
 		<div
